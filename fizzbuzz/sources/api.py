@@ -1,5 +1,13 @@
 from typing import Union
 
+FIZZ_MULTIPLIER = 3
+
+BUZZ_MULTIPLIER = 5
+
+FIZZ = "fizz"
+
+BUZZ = "buzz"
+
 
 def calculate_fizz_buzz(list_to_fizzbuzz: list[int]) -> list[Union[str, int]]:
     """
@@ -12,14 +20,17 @@ def calculate_fizz_buzz(list_to_fizzbuzz: list[int]) -> list[Union[str, int]]:
     """
     fizz_buzzed_list = []
     for number in list_to_fizzbuzz:
-        div_mod_of_3 = divmod(number, 3)
-        div_mod_of_5 = divmod(number, 5)
-        if div_mod_of_5[1] == 0 and div_mod_of_3[1] == 0:
-            fizz_buzzed_list.append("fizzbuzz")
-        elif div_mod_of_5[1] == 0:
-            fizz_buzzed_list.append("buzz")
-        elif div_mod_of_3[1] == 0:
-            fizz_buzzed_list.append("fizz")
-        else:
+        fizz_buzz_value = ""
+        if is_multiple_of(number, FIZZ_MULTIPLIER):
+            fizz_buzz_value += FIZZ
+        if is_multiple_of(number, BUZZ_MULTIPLIER):
+            fizz_buzz_value += BUZZ
+        if fizz_buzz_value == "":
             fizz_buzzed_list.append(number)
+        else:
+            fizz_buzzed_list.append(fizz_buzz_value)
     return fizz_buzzed_list
+
+
+def is_multiple_of(number_to_test: int, multiplier: int) -> bool:
+    return divmod(number_to_test, multiplier)[1] == 0
